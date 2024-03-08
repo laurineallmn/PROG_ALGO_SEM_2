@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\IMAC\IMAC_1\Cours\SEMESTRE2\Cpp\TD2_Laurine_ALLEMON_tri_04032024\TD2\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\IMAC\IMAC_1\Cours\SEMESTRE2\Cpp\TD2_Laurine_ALLEMON_tri_04032024\TD2\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A8BBBD8-093E-368F-874B-B6E7C8ED46BF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
