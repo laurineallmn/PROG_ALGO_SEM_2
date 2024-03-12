@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\IMAC\IMAC_1\Cours\SEMESTRE2\Cpp\TD1_Laurine_ALLEMON_part1_ex_operateurs_et_semantique_26022024\S1_TD8_correction_anguerrand\TD8\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\IMAC\IMAC_1\Cours\SEMESTRE2\Cpp\TD1_Laurine_ALLEMON_part1_ex_operateurs_et_semantique_26022024\S1_TD8_correction_anguerrand\TD8\src\fraction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\IMAC\IMAC_1\Cours\SEMESTRE2\Cpp\TD1_Laurine_ALLEMON_part1_ex_operateurs_et_semantique_26022024\S1_TD8_correction_anguerrand\TD8\src\utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\IMAC\IMAC_1\Cours\SEMESTRE2\Cpp\TD1_Laurine_ALLEMON_part1_ex_operateurs_et_semantique_26022024\S1_TD8_correction_anguerrand\TD8\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B7AD032B-5681-3BE9-B4BF-75756596FDF6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
