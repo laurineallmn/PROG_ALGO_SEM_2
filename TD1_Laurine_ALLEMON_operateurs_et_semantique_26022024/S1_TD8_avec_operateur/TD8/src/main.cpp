@@ -38,12 +38,16 @@ int main()
     std::cout << "div(f1, f2) = ";
     // (div(f1, f2)).display();
     std::cout << f6.numerator << "/" << f6.denominator;
-
+    std::cout << std::endl;
     // Fraction f7{{1, 6} + {2, 6}};
     // std::cout << std::endl
     //           << "add(1/6, 2/6) = ";
     // (add({1, 6}, {2, 6})).display();
     // f7.denominator << f7.numerator;
+
+    // std::cout << (f2 < f1) << std::endl; //c censé être vrai
+    // std::cout << (f6 > f1) << std::endl;
+    // std::cout << f2.to_float() << std::endl; //comme to_float est une methode, on fait f2.to_float et pas fraction::to_float(f2);
 
     return 0;
 }
