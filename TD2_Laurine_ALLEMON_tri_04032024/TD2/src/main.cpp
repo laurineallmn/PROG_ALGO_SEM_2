@@ -1,18 +1,13 @@
-#include <iostream>
 #include <vector>
 #include <algorithm>
+#include <iostream>
+#include <cstdlib>
 #include "ScopedTimer.hpp"
 
-std::vector<int> generate_random_vector(size_t const size, int const max = 100)
-{
-    std::vector<int> vec(size);
-    std::generate(vec.begin(), vec.end(), [&max]()
-                  { return std::rand() % max; });
-    return vec;
-}
+//NE TRIE QUE LE DEBUT DU TABLEAU JE SAIS PAS PK
 
-template <typename T>
-void afficher_vec(std::vector<T> const &vec)
+// template <typename T>
+void afficher_vec_int(std::vector<int> const &vec)
 {
     for (std::size_t i{0}; i < vec.size(); i++)
     {
@@ -28,140 +23,57 @@ void afficher_vec(std::vector<T> const &vec)
     std::cout << std::endl;
 }
 
-bool is_sorted(std::vector<int> const &vec)
+void afficher_vec_float(std::vector<float> const &vec)
 {
-    return std::is_sorted(vec.begin(), vec.end()); //dit si le tableau est trié ou non
+    for (std::size_t i{0}; i < vec.size(); i++)
+    {
+        if (i == vec.size() - 1) //si c'est la derniere valeur du tableau on n'affiche pas de virgule
+        {
+            std::cout << vec[i];
+        }
+        else
+        {
+            std::cout << vec[i] << ",";
+        }
+    }
+    std::cout << std::endl;
 }
 
-//std::swap(a,b)
+std::vector<int> generate_random_vector(size_t const size, int const max = 100)
+{
+    std::vector<int> vec(size);
+    std::generate(vec.begin(), vec.end(), [&max]()
+                  { return std::rand() % max; });
+    return vec;
+}
+
+bool is_sorted(std::vector<int> const &vec)
+{
+    return std::is_sorted(vec.begin(), vec.end());
+}
+
+////////// BUBBLE SORT ////////////////
 void bubble_sort(std::vector<int> &vec)
 {
-    {
-        ScopedTimer timer("chrono bubble sort");
-        // code à chronométrer
+    // {
+    // ScopedTimer timer("chrono bubble sort");
+    // code à chronométrer
 
-        std::cout << "Tableau trie :" << std::endl;
-        while (!(is_sorted(vec)))
+    std::cout << "Tableau trie :" << std::endl;
+    while (!(is_sorted(vec)))
+    {
+        for (std::size_t i{0}; i < vec.size() - 1; i++)
         {
-            for (std::size_t i{0}; i < vec.size() - 1; i++)
+            if (vec[i] >= vec[i + 1])
             {
-                if (vec[i] >= vec[i + 1])
-                {
-                    std::swap(vec[i], vec[i + 1]);
-                }
+                std::swap(vec[i], vec[i + 1]);
             }
         }
     }
+    // }
 }
 
-// int search(std::vector<int> const vec, int const valeur_recherche)
-// {
-//     int left{0};
-//     std::size_t right{vec.size()};
-//     int middle{(left + static_cast<int>(right)) / 2};
-//     int compteur{0}; //servira à savoir si la valeur recherchée est dans le tableau ou non
-
-//     if (valeur_recherche <= vec[middle])
-//     {
-//         right = middle; //on definit cette partie de tableau comme commencant à left et terminant à middle. Pour plus de lisibilité on va appele middle : right
-//         for (int i{left}; i <= right; i++)
-//         {
-//             if (vec[i] == valeur_recherche)
-//             {
-//                 return i;
-//             }
-//             else
-//             {
-//                 compteur += 1;
-//             }
-//         }
-//         if (compteur == right)
-//         {
-//             return -1;
-//         }
-//     }
-//     if (valeur_recherche > vec[middle])
-//     {
-//         left = middle + 1; //pour plus de lisibilité on dit que cette partie du tableau commence à middle. Donc left prend la valeur middle +1 et elle se finit à right.
-//         for (int i{left}; i <= right; i++)
-//         {
-//             if (vec[i] == valeur_recherche)
-//             {
-//                 return i;
-//             }
-//             else
-//             {
-//                 compteur += 1;
-//             }
-//         }
-//         if (compteur == right - left)
-//         {
-//             return -1;
-//         }
-//     }
-// }
-
-// int search(std::vector<int> vec, int const valeur_recherche)
-// {
-//     int left{0};
-//     std::size_t right{vec.size()};
-//     int middle{(left + static_cast<int>(right)) / 2};
-
-//     int tour{0};
-//     std::vector<int> new_vec{};
-//     bool nb_trouve{true};
-
-//     while (!nb_trouve)
-//     {
-//         if (valeur_recherche == vec[middle])
-//         {
-//             nb_trouve;
-//             // std::cout << middle << std::endl;
-//             return middle;
-//         }
-
-//         else if (valeur_recherche < vec[middle])
-//         {
-//             while (tour < vec.size() / 2)
-//             {
-//                 vec.pop_back();
-//                 tour++;
-//             }
-//             right = vec.size();
-//             middle = (left + static_cast<int>(right)) / 2;
-//             continue;
-//         }
-
-//         else if (valeur_recherche > vec[middle])
-//         {
-//             for (int i{static_cast<int>(right) + 1}; i <= vec.size(); i++)
-//             {
-//                 new_vec.push_back(vec[i]);
-//             }
-//             vec.clear();
-//             vec = new_vec;
-//             new_vec.clear();
-//             // right = vec.size(); //je sais pas si on ne met pas cette ligne si middle prend la nouvelle valeur de right ou pas. Au cas ou je réinitialise la valuer de right ici
-//             middle = (left + static_cast<int>(right)) / 2;
-
-//             continue;
-//         }
-//         if (middle < 0)
-//         {
-//             break;
-//         }
-//     }
-// }
-
-// std::ostream &operator<<(std::ostream &os, std::vector<float> const &vector)
-// {
-//     for (size_t i = 0; i < vector.size() - 1; i++)
-//     {
-//         os << vector[i];
-//     }
-//     os << vector[vector.size() - 1] ;
-//     return os;
-// }
+////////  MERGE SORT ////////
 
 void merge_sort_merge(std::vector<float> &vec, size_t const left, size_t const middle, size_t const right)
 {
@@ -177,56 +89,54 @@ void merge_sort_merge(std::vector<float> &vec, size_t const left, size_t const m
 
     size_t index{left};
 
-    // Tant que nous avons pas parcouru tout les éléments d'au moins une des deux sous-parties
+    // Tant que nous avons pas parcouru tous les éléments d'au moins une des deux sous-parties
     while (left_index < left_size && right_index < right_size)
     {
         // On compare les éléments des deux sous-parties et on place le plus petit dans le vecteur original
         // on met à jour les index pour parcourir les sous-parties en conséquence
         if (left_vec[left_index] <= right_vec[right_index])
         {
-            vec[left_index + right_index] = left_vec[left_index]; //vec[index] = left_vec[left_index]; /* TODO */
+            vec[index] = left_vec[left_index]; //vec[left_index + right_index] = left_vec[left_index];
             left_index++;
         }
         else
         {
-            vec[left_index + right_index] = right_vec[right_index]; //vec[index] = right_vec[right_index]; /* TODO */
+            vec[index] = right_vec[right_index]; //vec[left_index + right_index] = right_vec[right_index];
             right_index++;
         }
+        index++;
     }
 
     // S'il reste des éléments dans une des deux sous-parties, on les place dans le vecteur original
     while (left_index < left_size)
     {
-        /* TODO */
-        vec[left_index + right_index] = left_vec[left_index];
+        vec[index] = left_vec[left_index];
         left_index++;
     }
     while (right_index < right_size)
     {
-        vec[left_index + right_index] = right_vec[right_index];
+        vec[index] = right_vec[right_index];
         right_index++;
     }
 }
 
 void merge_sort(std::vector<float> &vec, size_t const left, size_t const right)
 {
-
     if (left >= right)
     {
-        // std::cout << "error" << std::endl;
         return;
+        // std::cout << "error" << std::endl;
     }
     // 1. Choix de l'index au milieu de la partition
-    std::size_t middle{(left + right) / 2};
+    size_t const middle = (left + right) / 2;
     // 2. Appels récursifs sur les deux sous-parties
     merge_sort(vec, left, middle - 1);
-    merge_sort(vec, middle, right);
+    merge_sort(vec, middle + 1, right);
     // 3. Fusion des deux sous-parties
     merge_sort_merge(vec, left, middle, right);
 }
 
 // Même mécanisme que pour le tri rapide
-//on la place en dessous de l'autre fonction sinon il y a pb avec le nb de parametre
 void merge_sort(std::vector<float> &vec)
 {
     merge_sort(vec, 0, vec.size() - 1);
@@ -236,42 +146,56 @@ int main()
 {
     //BUBBLE SORT
     std::vector<int> array{10, 2, 13, 7, 3, 6, 7, 1, 9};
-    afficher_vec(array);
+    std::cout << "--- BUBBLE SORT ---" << std::endl;
+    std::cout << "array : ";
+    afficher_vec_int(array);
 
     if (!(is_sorted(array)))
     {
         bubble_sort(array);
     }
-    afficher_vec(array);
+    afficher_vec_int(array);
 
-    // // DICHOTOMIE
-    // std::vector<int> const vec1{1, 2, 2, 3, 4, 8, 12};
-    // std::vector<int> const vec2{1, 2, 3, 3, 6, 14, 12, 15};
-    // std::vector<int> const vec3{2, 2, 3, 4, 5, 8, 12, 15, 16};
-    // std::vector<int> const vec4{5, 6, 7, 8, 9, 10, 11, 12, 13};
-    // std::vector<int> const vec5{1, 2, 3, 4, 5, 6, 7, 8, 9};
-    // //est ce que ca marhce de mettre search({1, 2, 2, 3, 4, 8, 12}, 8); ?
-    // std::cout << "vec 1 : " << search(vec1, 8) << std::endl;
-    // std::cout << "vec 2 : " << search(vec5, 15) << std::endl;
-    // std::cout << "vec 3 : " << search(vec3, 16) << std::endl;
-    // std::cout << "vec 4 : " << search(vec3, 6) << std::endl;
-    // std::cout << "vec 5 : " << search(vec4, 10) << std::endl;
+    {
+        ScopedTimer timer("chrono bubble sort array");
+        std::vector<int> array{10, 2, 13, 7, 3, 6, 7, 1, 9};
+        bubble_sort(array);
+    }
+    //pourquoi le temps calculer par le chrno est si different si on met ScopedTimer dans la fonction bubble ou dans le main ?
+    //dans la focntion bubble = 0.114, dans le main = 0.8049ms
+
+    //MERGE SORT
+
+    std::cout << "--- MERGE SORT ---" << std::endl;
+
     std::vector<float> vec1{1.f, 3.f, 7.f, 3.f, 4.f, 8.f, 12.f};
     std::cout << "vec 1 : ";
-    afficher_vec(vec1);
+    afficher_vec_float(vec1);
     merge_sort(vec1);
     std::cout << "vec 1 trie : ";
-    afficher_vec(vec1);
+    afficher_vec_float(vec1);
+
+    std::vector<float> vec2{1, 6, 4, 15, 3, 7, 12};
+    std::cout << "vec 2 : ";
+    afficher_vec_float(vec2);
+    merge_sort(vec2);
+    std::cout << "vec 2 trie : ";
+    afficher_vec_float(vec2);
+
+    {
+        ScopedTimer timer("chrono merge sort vec 2");
+        std::vector<float> vec2{1, 6, 4, 15, 3, 7, 12};
+        merge_sort(vec2);
+    }
+
+    //STD::SORT
+    std::cout << "--- STD::SORT ---" << std::endl;
+
+    {
+        ScopedTimer timer("chrono std::sort (bibliotheque standard");
+        std::vector<int> array{1, 15, 7, 4, 5, 3, 9, 8, 2};
+        std::sort(array.begin(), array.end());
+    }
+
+    return 0;
 }
-
-//     if (is_sorted(array))
-//     {
-//         std::cout << "Le tableau est trie" << std::endl;
-//     }
-
-//     else
-//     {
-//         std::cout << "Le tableau n est pas trie" << std::endl;
-//     }
-//     return 0;
-// }
