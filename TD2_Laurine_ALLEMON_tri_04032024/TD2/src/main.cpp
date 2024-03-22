@@ -142,6 +142,43 @@ void merge_sort(std::vector<float> &vec)
     merge_sort(vec, 0, vec.size() - 1);
 }
 
+/////////  DICHOTOMIE  /////////
+int search(std::vector<int> vec, int const valeur_cherche)
+{
+    bool trouve{false};
+    int left{0};
+    std::size_t right{vec.size() - 1}; //std::size_t
+    int middle{(left + static_cast<int>(right)) / 2};
+    if (is_sorted(vec))
+    {
+        while (trouve == false)
+        {
+            if (vec[middle] == valeur_cherche)
+            {
+                trouve = true;
+                return middle;
+            }
+            else if (vec[middle] < valeur_cherche)
+            {
+                left = middle + 1;
+            }
+            else if (vec[middle] > valeur_cherche)
+            {
+                right = middle - 1;
+            }
+            middle = (left + right) / 2;
+        }
+    }
+    if (trouve == false)
+    {
+        return 1000000; //erreur 1000000 = valeur pas trouve
+    }
+    else
+    {
+        return 20000000; //erreur 20000000 = tableau pas trie
+    }
+}
+
 int main()
 {
     //BUBBLE SORT
@@ -196,6 +233,17 @@ int main()
         std::vector<int> array{1, 15, 7, 4, 5, 3, 9, 8, 2};
         std::sort(array.begin(), array.end());
     }
+
+    //DICHOTOMIE
+    std::cout << "--- DICHOTOMIE ---" << std::endl;
+
+    std::vector<int> vec{1, 3, 6, 8, 10, 32};
+    int valeur_cherche{10};
+    std::cout << "le tableau : ";
+    afficher_vec_int(vec);
+    std::cout << "la valeur recherchee : " << valeur_cherche << std::endl;
+    std::cout << "L'indice de la valeur recherchee dans le tableau est : ";
+    std::cout << search(vec, valeur_cherche) << std::endl;
 
     return 0;
 }
