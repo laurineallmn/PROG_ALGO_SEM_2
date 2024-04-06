@@ -6,6 +6,38 @@
 #include <cctype>
 #include <stack>
 
+enum class Operator
+{
+    ADD,
+    SUB,
+    MUL,
+    DIV,
+    POW,
+    OPEN_PAREN,
+    CLOSE_PAREN
+};
+enum class TokenType
+{
+    OPERATOR,
+    OPERAND
+};
+
+struct Token
+{
+    TokenType type;
+    float value;
+    Operator op;
+
+    Token make_token(float value)
+    {
+        return {TokenType::OPERAND, value};
+    }
+    Token make_token(Operator op)
+    {
+        return {TokenType::OPERATOR, 0.f, op};
+    }
+};
+
 void afficher_vec(std::vector<std::string> const &vec)
 {
     for (std::size_t i{0}; i < vec.size(); i++)
@@ -57,48 +89,55 @@ float npi_evaluate(std::vector<Token> const &tokens)
     float result{};
 
     // for (int i{}; i < tokens.size(); i++)
-    for (std::string element : tokens)
+    for (int i{}; i < tokens.size(); i++)
     {
-        if (is_floating(element) == true)
+        if (tokens.size() > 2)
         {
-            stack.push(stof(element));
+            if (tokens[i].type == TokenType::OPERAND)
+            // if (tokens[i]) == TokenType::OPERAND)
+            {
+                stack.push(tokens[i].value);
+            }
+            else if (tokens[i].type == TokenType::OPERATOR)
+            {
+                rightOperand = stack.top();
+                stack.pop();
+                leftOperand = stack.top();
+                stack.pop();
+                if (tokens[i].op == Operator::ADD)
+                {
+                    result = leftOperand - rightOperand;
+                    stack.push(result);
+                }
+                else if (tokens[i].op == Operator::SUB)
+                {
+                    result = leftOperand * rightOperand;
+                    stack.push(result);
+                }
+                else if (tokens[i].op == Operator::MUL)
+                {
+                    result = leftOperand / rightOperand;
+                    stack.push(result);
+                }
+                else if (tokens[i].op == Operator::DIV)
+                {
+                    result = pow(leftOperand, rightOperand);
+                    stack.push(result);
+                }
+                else if (tokens[i].op == Operator::POW)
+                {
+                    result = leftOperand + rightOperand;
+                    stack.push(result);
+                }
+                else
+                {
+                    std::cout << "l'expression en NPI est invalide" << std::endl;
+                }
+            }
         }
         else
         {
-
-            rightOperand = stack.top();
-            stack.pop();
-            leftOperand = stack.top();
-            stack.pop();
-            if (element == "+")
-            {
-                result = leftOperand + rightOperand;
-                stack.push(result);
-            }
-            else if (element == "-")
-            {
-                result = leftOperand - rightOperand;
-                stack.push(result);
-            }
-            else if (element == "*")
-            {
-                result = leftOperand * rightOperand;
-                stack.push(result);
-            }
-            else if (element == "/")
-            {
-                result = leftOperand / rightOperand;
-                stack.push(result);
-            }
-            else if (element == "^")
-            {
-                result = pow(leftOperand, rightOperand);
-                stack.push(result);
-            }
-            else
-            {
-                std::cout << "l'expression en NPI est invalide" << std::endl;
-            }
+            std::cout << "error : expression pas valable" << std::endl;
         }
     }
 
@@ -111,37 +150,6 @@ float npi_evaluate(std::vector<Token> const &tokens)
         std::cout << "error nb de tokens >1" << std::endl;
     }
 }
-
-enum class Operator
-{
-    ADD,
-    SUB,
-    MUL,
-    DIV,
-    POW,
-    OPEN_PAREN,
-    CLOSE_PAREN
-};
-enum class TokenType
-{
-    OPERATOR,
-    OPERAND
-};
-struct Token
-{
-    TokenType type;
-    float value;
-    Operator op;
-
-    Token make_token(float value)
-    {
-        return {TokenType::OPERAND, value};
-    }
-    Token make_token(Operator op)
-    {
-        return {TokenType::OPERATOR, 0.f, op};
-    }
-};
 
 std::vector<Token> tokenize(std::vector<std::string> const &words)
 {
