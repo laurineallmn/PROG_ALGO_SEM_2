@@ -212,5 +212,5 @@ int main()
         }
     }
     std::cout << "------------" << std::endl;
-    std::cout << "Le resultat est :" << npi_evaluate(tokenize(vector_string);) << std::endl;
+    std::cout << "Le resultat est :" << npi_evaluate(tokenize(vector_string)) << std::endl;
 }
