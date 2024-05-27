@@ -36,21 +36,7 @@ int main()
     root->display_infixe();
     std::cout << std::endl;
 
-    std::cout << "Chemin prefixe :" << std::endl;
-    std::vector<Node const *> prefix_nodes = root->prefixe();
-    for (const Node *node : prefix_nodes)
-    {
-        std::cout << node->value << ", ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Chemin postfixe:" << std::endl;
-    std::vector<Node const *> postfix_nodes = root->postfixe();
-    for (const Node *node : postfix_nodes)
-    {
-        std::cout << node->value << ", ";
-    }
-    std::cout << std::endl;
+    std::cout << "Le hauteur de l'arbre bianaire est : " << root->height() << std::endl;
 
     //pour ne pas écraser de donnée
     root->delete_childs();
