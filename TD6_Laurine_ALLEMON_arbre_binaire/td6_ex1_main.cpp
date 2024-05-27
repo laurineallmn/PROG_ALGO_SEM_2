@@ -22,12 +22,39 @@ void pretty_print_left_right(Node const &node)
 
 int main()
 {
-    Node *root{new Node{10, nullptr, nullptr}};
-    root->left = {new Node{7, nullptr, nullptr}};
-    root->right = {new Node{12, nullptr, nullptr}};
-    root->left->left = {new Node{6, nullptr, nullptr}};
-    root->left->right = {new Node{9, nullptr, nullptr}};
-    root->right->left = {new Node{11, nullptr, nullptr}};
-    root->right->right = {new Node{15, nullptr, nullptr}};
-    // root->left->left = {new Node{6, nullptr, nullptr}};
+
+    Node *root = create_node(10);
+    root->insert(7);
+    root->insert(12);
+    root->insert(6);
+    root->insert(9);
+    root->insert(11);
+    root->insert(15);
+    root->insert(6);
+
+    std::cout << "Chemin infixe : ";
+    root->display_infixe();
+    std::cout << std::endl;
+
+    std::cout << "Chemin prefixe :" << std::endl;
+    std::vector<Node const *> prefix_nodes = root->prefixe();
+    for (const Node *node : prefix_nodes)
+    {
+        std::cout << node->value << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Chemin postfixe:" << std::endl;
+    std::vector<Node const *> postfix_nodes = root->postfixe();
+    for (const Node *node : postfix_nodes)
+    {
+        std::cout << node->value << ", ";
+    }
+    std::cout << std::endl;
+
+    //pour ne pas écraser de donnée
+    root->delete_childs();
+    delete root;
+
+    return 0;
 }

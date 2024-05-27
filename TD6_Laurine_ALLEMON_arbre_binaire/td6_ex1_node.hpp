@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 struct Node
 {
@@ -7,10 +8,17 @@ struct Node
     Node *right{nullptr};
 
     bool is_leaf() const;
-    void Node::insert(int value);
-    int Node::height() const;
-    void Node::delete_childs();
-    void Node::display_infixe() const;
+    void insert(int value);
+    int height() const;
+    void delete_childs();
+
+    void display_infixe() const;
+    void display_prefixe() const;
+    void display_postfixe() const;
+    std::vector<Node const *> prefixe() const;
+    std::vector<Node const *> postfixe() const;
+
+    Node *&most_left(Node *&node);
 };
 
 Node *create_node(int value);
