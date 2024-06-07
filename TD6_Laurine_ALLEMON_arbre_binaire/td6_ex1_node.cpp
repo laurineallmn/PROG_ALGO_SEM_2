@@ -156,6 +156,80 @@ Node *&Node::most_left(Node *&node)
     return node;
 };
 
+bool remove(Node *&node, int value)
+{
+    if (value == node->value && node->is_leaf())
+    {
+        // On supprime le nœud courant
+        delete node;
+        // Comme on a une référence sur le pointeur du nœud courant, on le met à jour avec nullptr
+        // Ainsi le parent du nœud courant aura un pointeur vers nullptr
+        node = nullptr;
+        // on retourne true car la suppression a été effectuée
+        return true;
+    }
+    //si le noeud à un fils à droite
+    else if (value == node->value && node->right != nullptr && node->left == nullptr)
+    {
+        Node *right{node->right};
+        delete node;
+        node = right;
+        return true;
+    }
+    //si le noeud à un fils à gauche
+    else if (value == node->value && node->right == nullptr && node->left != nullptr)
+    {
+        Node *left{node->left};
+        delete node;
+        node = left;
+        return true;
+    }
+    //si le noeud à 2 fils un a droite et un a gauche
+    else if (value == node->value && node->right != nullptr && node->left != nullptr)
+    {
+        node->value = most_left(node)->value;
+        remove(most_left(node), most_left(node)->value);
+        delete most_left(node->left);
+        return true;
+    }
+    return false;
+}
+
+int min(Node *node)
+{
+    if (node == nullptr)
+    {
+        return -1; // si le noeud de depart est nul
+    }
+    return most_left(node)->value;
+}
+
+int max(Node *node)
+{
+    if (node == nullptr)
+    {
+        return -1; // si le noeud de depart est nul
+    }
+    if (node->right != nullptr)
+    {
+        return max(node->right);
+    }
+    return node->value;
+}
+
+int somme(Node *root)
+{
+    std::vector<int> valeurs{};
+    prefixe(root, valeurs);
+
+    int somme = 0;
+    for (int valeur : valeurs)
+    {
+        somme += valeur;
+    }
+    return somme;
+}
+
 Node *create_node(int value)
 {
     Node *root{new Node{value, nullptr, nullptr}};
