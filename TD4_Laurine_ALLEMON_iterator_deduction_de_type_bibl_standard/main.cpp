@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <numeric>
 
+//TD4
+// EX 1 (l'ex 2 n'est pas dans le fichier main.cpp mais dans un fichier a part : td4_ex2.cpp)
 void afficher_vec(std::vector<int> const &vec)
 {
     for (std::size_t i{0}; i < vec.size(); i++)
