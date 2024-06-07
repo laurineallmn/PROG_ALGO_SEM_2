@@ -217,15 +217,19 @@ int max(Node *node)
     return node->value;
 }
 
-int somme(Node *root)
+int somme(Node const *root)
 {
-    std::vector<int> valeurs{};
-    prefixe(root, valeurs);
+    std::vector<Node const *> nodes{root->prefixe()};
+    int somme{0};
 
-    int somme = 0;
-    for (int valeur : valeurs)
+    if (root == nullptr)
     {
-        somme += valeur;
+        return 0;
+    }
+
+    for (const Node *node : nodes)
+    {
+        somme += node->value;
     }
     return somme;
 }
